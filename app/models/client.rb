@@ -1,3 +1,2 @@
-class Client < ActiveRecord::Base
-	belongs_to :person
+class Client < Person
 end
