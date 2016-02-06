@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'clients/:id/restore', to: 'clients#restore', as: 'client_restore'
+  get 'clients/trash', as: 'client_trash'
   resources :clients
   resources :people
   get 'welcome/index'
