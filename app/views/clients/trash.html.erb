@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Clientes eliminados</h1>
+
+<div class="row list">
+  <div class="row table-head">
+    <div class="col-md-4 col-xs-4">Nombre</div>
+    <div class="col-md-3 col-xs-3">CUIL/CUIT</div>
+    <div class="col-md-2 col-xs-2"></div>
+  </div>
+  <% @clients.each do |client| %>
+    <% nameSurname = client.person.name + (client.person.surname.nil? ? "" : " #{client.person.surname}") %>
+    <div class="row">
+      <div class="col-md-4 col-xs-4"><%= link_to nameSurname, client %></div>
+      <div class="col-md-3 col-xs-3"><%= client.person.cuil_cuit %></div>
+      <div class="col-md-2 col-xs-2"><%= link_to 'Restaurar', "#{client.id}/restore",class: "btn btn-default" %></div>
+    </div>
+  <% end %>
+</div>
