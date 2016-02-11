@@ -1,29 +1,127 @@
 <p id="notice"><%= notice %></p>
 
+<% if @client.person.type_person == 2 %>
+  <p>
+    <strong>Razón social:</strong>
+    <%= @client.person.name %>
+  </p>
+  <p>
+    <strong>Persona:</strong> Jurídica
+  </p>
+<% else %>
+  <p>
+  <strong>Nombre y apellido: </strong>
+    <%= @client.nameSurname %>
+  </p>
+  <p>
+    <strong>Persona:</strong> Física
+  </p>
+  <p>
+    <strong>Fecha de nacimiento:</strong>
+    <%= @client.birthday.to_date %>
+  </p>
+  <p>
+    <strong>Edad:</strong>
+    <%= @client.age %>
+  </p>
+  <p>
+    <strong>Género:</strong>
+    <%= @client.gender == 1 ? "Femenino" : "Masculino" %>
+  </p>
+
+  <p>
+    <strong>Dni:</strong>
+    <%= @client.dni %>
+  </p>
+<% end %>
 <p>
-  <strong>Name:</strong>
-  <%= @client.name %>
+  <strong>CUIL/CUIT:</strong>
+  <%= @client.cuil_cuit %>
+</p>
+<p>
+  <strong>Cantidad total de facturas:</strong>
+  <%= @client.totalBills %>
 </p>
 
-<p>
-  <strong>Surname:</strong>
-  <%= @client.surname %>
-</p>
+<h3>Contacto</h3>
+<div class="row list">
+  <div class="row table-head">
+    <div class="col-md-3 col-xs-3">
+      <strong>Tipo contacto</strong>
+    </div>
+    <div class="col-md-7 col-xs-7">
+      <strong>Contacto</strong>
+    </div>
+  </div>
+  <% @client.contacts.each do |f| %>
+    <div class="row">
+      <div class="col-md-3 col-xs-3">
+        <%= f.type_contact %>
+      </div>
+      <div class="col-md-7 col-xs-7">
+        <%= f.data_contact %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<h3>Monto facturado por año</h3>
+<div class="row list">
+  <div class="row table-head">
+      <div class="col-md-3 col-xs-3"><strong>Año</strong></div>
+      <div class="col-md-3 col-xs-3"><strong>Monto total</strong></div>
+  </div>
+  <% @client.amountPerYear.each do |e|%>
+    <div class="row">
+      <div class="col-md-3 col-xs-3">
+        <%= e[1] %>
+      </div>
+      <div class="col-md-3 col-xs-3"> 
+        $<%= e[0].round(2) %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Birthday:</strong>
-  <%= @client.birthday %>
-</p>
+<h3>Cantidad de facturaciones en el año <%= Date.today.year %></h3>
+<% array = Array.new(Date.today.month.to_i){|v| v = 0} %>
+<% @client.numberOfBillsPerMonth.each do |e| %>
+  <% array[e[1].to_i - 1] = e[0] %>
+<% end %>
+<div class="row list">
+  <div class="row table-head">
+      <div class="col-md-3 col-xs-3"><strong>Mes</strong></div>
+      <div class="col-md-3 col-xs-3"><strong>Cantidad</strong></div>
+  </div>
+  <% array.each_with_index do |v,i| %>
+    <div class="row">
+      <div class="col-md-3 col-xs-3">
+        <%= i + 1 %>
+      </div>
+      <div class="col-md-3 col-xs-3">
+        <%= v %>
+      </div>
+    </div>
+  <% end%>
+</div>
 
-<p>
-  <strong>Gender:</strong>
-  <%= @client.gender %>
-</p>
+<h3>Personas a las que más facturó</h3>
+<div class="row list">
+  <div class="row table-head">
+      <div class="col-md-3 col-xs-3"><strong>Comprador</strong></div>
+      <div class="col-md-3 col-xs-3"><strong>CUIL/CUIT</strong></div>
+  </div>
+  <% @client.purchasersWithMoreBills.each do |f| %>
+    <div class="row">
+      <div class="col-md-3 col-xs-3">
+        <%= f.nameSurname %>
+      </div>
+      <div class="col-md-3 col-xs-3">
+        <%= f.cuil_cuit %>
+      </div>
+    </div>
+  <% end%>
+</div>
 
-<p>
-  <strong>Dni:</strong>
-  <%= @client.dni %>
-</p>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+<%= link_to 'Editar', edit_client_path(@client) %> |
+<%= link_to 'Listado de clientes', clients_path %>

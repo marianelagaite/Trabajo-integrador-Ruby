@@ -10,28 +10,44 @@
       </ul>
     </div>
   <% end %>
+  <%= f.fields_for :person do |p|%>
+    <div class="field">
+      <%= p.label "Persona"%><br>
+      <%= p.select(:type_person, [["Física", 1],["Jurídica", 2]], prompt: "")%>
+    </div>
+    <div class="field">
+      <%= p.label "Nombre" %><br>
+      <%= p.text_field :name %>
+    </div>
+    <div class="field">
+      <%= p.label "Apellido" %><br>
+      <%= p.text_field :surname %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label "CUIL/CUIT"%><br>
+    <%= f.number_field :cuil_cuit %>
+  </div>
+  <div class="field">
+    <%= f.label "Fecha de nacimiento" %><br>
+    <%= f.date_select :birthday,{order:[:year, :month, :day], start_year: Date.today.year, end_year: Date.today.year - 100, use_month_numbers: true} %>
+  </div>
+  <div class="field">
+    <%= f.label "Sexo" %><br>
+    <%= f.select(:gender, [["Femenino", 1],["Masculino", 2]], prompt: "") %>
+  </div>
+  <div class="field">
+    <%= f.label "DNI" %><br>
+    <%= f.number_field :dni %>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :surname %><br>
-    <%= f.text_field :surname %>
-  </div>
-  <div class="field">
-    <%= f.label :birthday %><br>
-    <%= f.datetime_select :birthday %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
-  </div>
-  <div class="field">
-    <%= f.label :dni %><br>
-    <%= f.text_field :dni %>
-  </div>
+  <%= f.fields_for :contacts do |b|%>
+    <%= render 'contact_fields', f: b %>
+  <% end %>
+  <%= link_to_add_fields "Agregar contacto", f, :contacts%> 
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
