@@ -54,9 +54,9 @@ class PeopleController < ApplicationController
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
-    @person.destroy
+    @person.toTrash
     respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
+      format.html { redirect_to clients_url, notice: "#{@person.name} fue eliminado correctamente" }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :cuilCuit, :trash)
+      params.require(:person).permit(:name, :surname, :cuil_cuit, :trash)
     end
 end
