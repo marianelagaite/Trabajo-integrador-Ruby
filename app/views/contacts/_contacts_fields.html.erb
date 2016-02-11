@@ -1,0 +1,8 @@
+<fieldset>
+	<%= f.label "Tipo de contacto" %>
+	<%= f.text_field :type %>
+	<%= f.label "contacto" %>
+	<%= f.text_field :data %>
+	<%= f.hidden_field :_destroy %>
+	<%= link_to "Eliminar", '#', class: "remove_fields btn btn-danger" %>
+</fieldset>
