@@ -11,28 +11,59 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160204084157) do
+ActiveRecord::Schema.define(version: 20160210055624) do
+
+  create_table "bills", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "purchaser_id"
+    t.decimal  "amount",       precision: 16, scale: 3
+    t.string   "description"
+    t.datetime "date"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+  end
+
+  add_index "bills", ["client_id"], name: "index_bills_on_client_id"
+  add_index "bills", ["purchaser_id"], name: "index_bills_on_purchaser_id"
 
   create_table "clients", force: :cascade do |t|
-    t.string   "name"
-    t.string   "surname"
     t.datetime "birthday"
     t.integer  "gender",     limit: 1
     t.integer  "dni",        limit: 8
-    t.integer  "person_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "person_id"
+    t.integer  "cuil_cuit",  limit: 8
   end
 
   add_index "clients", ["person_id"], name: "index_clients_on_person_id"
 
+  create_table "contacts", force: :cascade do |t|
+    t.string   "type_contact"
+    t.string   "data_contact"
+    t.integer  "client_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "contacts", ["client_id"], name: "index_contacts_on_client_id"
+
   create_table "people", force: :cascade do |t|
     t.string   "name"
-    t.integer  "cuil_cuit",   limit: 8
+    t.string   "surname"
     t.integer  "type_person", limit: 1
     t.integer  "trash",       limit: 1
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
   end
+
+  create_table "purchasers", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "cuil_cuit",  limit: 8
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "purchasers", ["person_id"], name: "index_purchasers_on_person_id"
 
 end
