@@ -11,26 +11,10 @@
     </div>
   <% end %>
   <h3>Vendedor: <%= @client.nameSurname %></h3>
-  <%= f.fields_for :purchaser do |pur| %>
     <div class="field">
-      <%= pur.label "CUIL/CUIT del comprador" %><br>
-      <%= pur.number_field :cuil_cuit %>
+      <%= f.label "comprador" %><br>
+      <%= f.collection_select(:purchaser_id, @purchasers, :id, :cuil_cuit ) %>
     </div>
-    <%= pur.fields_for :person do |p| %>
-      <div class="field">
-        <%= p.label "Tipo de comprador"%><br>
-        <%= p.select(:type_person, [["Físico", 1],["Jurídico", 2]], prompt: "")%>
-      </div> 
-      <div class="field">
-        <%= p.label "nombre" %><br>
-        <%= p.text_field :name %>
-      </div>
-      <div class="field">
-        <%= p.label "apellido" %><br>
-        <%= p.text_field :surname %>
-      </div
-    <% end %>
-  <% end %>
   <div class="field">
     <%= f.label "Monto total" %><br>
     $<%= f.number_field :amount, step: 'any' %>
