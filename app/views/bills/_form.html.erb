@@ -1,0 +1,59 @@
+<%= form_for([@client,@bill]) do |f| %>
+  <% if @bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+
+      <ul>
+      <% @bill.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <h3>Vendedor: <%= @client.nameSurname %></h3>
+  <%= f.fields_for :purchaser do |pur| %>
+    <div class="field">
+      <%= pur.label "CUIL/CUIT del comprador" %><br>
+      <%= pur.number_field :cuil_cuit %>
+    </div>
+    <%= pur.fields_for :person do |p| %>
+      <div class="field">
+        <%= p.label "Tipo de comprador"%><br>
+        <%= p.select(:type_person, [["Físico", 1],["Jurídico", 2]], prompt: "")%>
+      </div> 
+      <div class="field">
+        <%= p.label "nombre" %><br>
+        <%= p.text_field :name %>
+      </div>
+      <div class="field">
+        <%= p.label "apellido" %><br>
+        <%= p.text_field :surname %>
+      </div
+    <% end %>
+  <% end %>
+  <div class="field">
+    <%= f.label "Monto total" %><br>
+    $<%= f.number_field :amount, step: 'any' %>
+  </div>
+  <div class="field">
+    <%= f.label "Descripción" %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label "Fecha de emisión" %><br>
+    <%= f.date_select :date,{order:[:year, :month, :day], start_year: Date.today.year, end_year: Date.today.year - 100, use_month_numbers: true} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+
+
+<div class="modal fade" id="purchaser-modal">
+  <div class="modal-dialog">
+    <div id="inner-modal" class="modal-content"></div>
+  </div>
+</div>

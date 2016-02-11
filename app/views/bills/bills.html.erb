@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Facturaciones</h1>
+
+<h2>Clientes</h2>
+<div class="row list">
+  <div class="row table-head">
+      <div class="col-md-4 col-xs-4">Nombre</div>
+      <div class="col-md-2 col-xs-2">Cuil/cuit</div>
+      <div colspan="1"></div>
+  </div>
+  <% @clients.each do |client| %>
+    <div class="row">
+      <div class="col-md-4 col-xs-4"><%= link_to client.nameSurname, client %></div>
+      <div class="col-md-3 col-xs-3"><%= client.cuil_cuit %></div>
+      <div class="col-md-2 col-xs-2"><%= link_to 'Facturas', client_bills_path(client), class: "btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+</div>

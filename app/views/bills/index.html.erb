@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Facturas del cliente: 
+  <%= @client.nameSurname %>
+</h2>
+
+<div class="row list">
+  <div class="row table-head">
+      <div class="col-md-3 col-xs-3">Comprador</div>
+      <div class="col-md-3 col-xs-3">Monto total</div>
+      <div class="col-md-3 col-xs-3">Fecha de emisión</div>
+      <div colspan="3"></div>
+  </div>
+  <% @bills.each do |bill| %>
+    <div class="row">
+      <div class="col-md-3 col-xs-3">
+        <%= bill.purchaser.nameSurname %>
+      </div>
+      <div class="col-md-3 col-xs-3"><%= bill.amount %></div>
+      <div class="col-md-3 col-xs-3"><%= bill.date.to_date %></div>
+      <div class="col-md-1 col-xs-1">
+        <%= link_to 'Ver', client_bill_path(@client, bill), class: "btn btn-default" %>
+      </div>
+      <div class="col-md-1 col-xs-1">
+        <%= link_to edit_client_bill_path(@client, bill), class: "btn btn-default" do%>
+            <span class="glyphicon glyphicon-pencil"></span>
+        <% end %>
+      </div>
+      <div class="col-md-1 col-xs-1">
+        <%= link_to client_bill_path(@client, bill), method: :delete, data: { confirm: '¿Seguro que desea eliminarla?' }, class: "btn btn-danger" do%>
+          <span class="glyphicon glyphicon-remove"></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<br>
+
+<%= link_to 'New Bill', new_client_bill_path %>
