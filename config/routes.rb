@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  resources :contacts
+  resources :purchasers
+  get 'bills', as: 'bills', to: 'bills#bills'
   get 'clients/:id/restore', to: 'clients#restore', as: 'client_restore'
   get 'clients/trash', as: 'client_trash'
-  resources :clients
+  resources :clients do
+    resources :bills
+  end
   resources :people
   get 'welcome/index'
 
