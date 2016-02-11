@@ -1,2 +1,27 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+.nav{
+	background-color: black;
+	color: #A4F5BC;
+}
+
+.nav li{
+	background-color: black;
+	color: #A4F5BC;
+}
+
+.nav a{
+	color: #A4F5BC;
+}
+
+.row{
+	margin: 10px;
+}
+
+.main-section{
+	margin-left: 2%;
+	min-height: 350px;
+}
+.navbar-nav{
+	color: #A4F5BC;
+}
