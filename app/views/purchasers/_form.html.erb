@@ -1,0 +1,35 @@
+<%= form_for(@purchaser)  do |f| %>
+  <% if @purchaser.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@purchaser.errors.count, "error") %> prohibited this purchaser from being saved:</h2>
+
+      <ul>
+      <% @purchaser.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="modal-body">
+  <%= f.fields_for :person do |p|%>
+    <div class="field">
+      <%= p.label "Persona"%><br>
+      <%= p.select(:type_person, [["Física", 1],["Jurídica", 2]], prompt: "")%>
+    </div>
+    <div class="field">
+      <%= p.label "Nombre" %><br>
+      <%= p.text_field :name %>
+    </div>
+    <div class="field">
+      <%= p.label "Apellido" %><br>
+      <%= p.text_field :surname %>
+    </div>
+  <% end %>
+    <div class="field">
+      <%= f.label "cuil/cuit" %><br>
+      <%= f.number_field :cuil_cuit %>
+    </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
