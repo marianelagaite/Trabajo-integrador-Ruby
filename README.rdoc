@@ -1,28 +1,40 @@
-== README
+= E-Vader
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+== Versiones 
 
-Things you may want to cover:
+* Ruby: 2.2.3
 
-* Ruby version
+* Ruby on Rails: 4.2.5
 
-* System dependencies
+== Inicialización
 
-* Configuration
+Para inicializar la base de datos junto con los seeds ejecutar:
 
-* Database creation
+  rake db:setup
 
-* Database initialization
+Para ejecutar los test usar:
 
-* How to run the test suite
+  rake test
 
-* Services (job queues, cache servers, search engines, etc.)
+== Sistema
 
-* Deployment instructions
+El sistema se encuentra dividido en tres secciones principales:
 
-* ...
+* clientes
+* facturas
+* compradores
 
+=== clientes
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Muestra una lista de los clientes del estudio. En esta sección se puede administrar el alta, baja, modificación y restauración de los clientes.
+En el link del nombre del cliente se podrá ver información maás detallada del mismo.
+
+=== facturas 
+
+Muestra un listado de las facturas correspondientes a cada cliente. En esta sección se puede administrar el alta,baja y modificación de las facturas.
+
+=== compradores
+
+Muestra el listado de las personas a las que los clientes facturaron. En esta sección se puede administrar el alta, baja y modificación de los compradores.
+
+* Si un comprador es eliminado, tambien seran eliminadas sus facturas.
